@@ -1,0 +1,17 @@
+{
+  "name": "RealmFlow — Project & Task Management",
+  "short_name": "RealmFlow",
+  "description": "Plan projects, track tasks, and collaborate across workspaces with RealmFlow.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090B",
+  "theme_color": "#FACC15",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
