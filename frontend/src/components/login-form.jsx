@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { cn } from "cn"
 import { toast } from "sonner"
 import {
@@ -35,6 +36,7 @@ import {
 } from "@/components/ui/tooltip"
 
 export function LoginForm({ className, ...props }) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -71,6 +73,7 @@ export function LoginForm({ className, ...props }) {
       toast.success("Welcome back to RealmFlow!", {
         description: `Signed in as ${email}`,
       })
+      navigate("/")
     }, 600)
   }
 
