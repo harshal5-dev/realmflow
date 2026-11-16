@@ -158,7 +158,7 @@ export function LoginPage() {
         </div>
 
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/20 px-3 py-1 text-xs font-medium text-primary-foreground dark:border-primary/25 dark:bg-primary/12 dark:text-primary">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
             <IconLayoutKanban className="size-3.5" />
             Project &amp; Task Management
           </div>
@@ -177,14 +177,14 @@ export function LoginPage() {
           <Card className="border border-border/60 bg-card/90 shadow-lg backdrop-blur-sm">
             <CardHeader className="border-b border-border/60 pb-4">
               <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                <IconListCheck className="size-4 text-sidebar-primary dark:text-primary" />
+                <IconListCheck className="size-4 text-primary" />
                 Product Launch · Sprint 4
               </CardTitle>
               <CardDescription className="text-xs">
                 Active tasks in your workspace
               </CardDescription>
               <CardAction>
-                <span className="inline-flex items-center rounded-full bg-primary/25 px-2.5 py-1 text-xs font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                <span className="inline-flex items-center rounded-full bg-primary/12 px-2.5 py-1 text-xs font-semibold text-primary">
                   2 / 3 Done
                 </span>
               </CardAction>
@@ -224,7 +224,7 @@ export function LoginPage() {
               <div className="flex items-center gap-2.5">
                 <AvatarGroup>
                   <Avatar size="sm">
-                    <AvatarFallback className="bg-primary/25 text-[10px] font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                    <AvatarFallback className="bg-primary/12 text-[10px] font-semibold text-primary">
                       SH
                     </AvatarFallback>
                     <AvatarBadge />
@@ -264,7 +264,7 @@ export function LoginPage() {
               return (
                 <div key={feature.title} className="space-y-1.5">
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
-                    <div className="flex size-6 items-center justify-center rounded-lg bg-primary/25 text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                    <div className="flex size-6 items-center justify-center rounded-lg bg-primary/12 text-primary">
                       <IconComponent className="size-3.5" />
                     </div>
                     <span>{feature.title}</span>

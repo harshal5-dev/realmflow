@@ -196,7 +196,15 @@ export function DashboardPage() {
         if (task.id !== taskId) return task
         const nextStatus =
           task.status === "Completed" ? "In Progress" : "Completed"
-        toast.success(`${task.id} marked as ${nextStatus}`)
+        if (nextStatus === "Completed") {
+          toast.success(`${task.id} completed`, {
+            description: task.title,
+          })
+        } else {
+          toast.warning(`${task.id} moved back to In Progress`, {
+            description: task.title,
+          })
+        }
         return { ...task, status: nextStatus }
       })
     )
@@ -275,7 +283,7 @@ export function DashboardPage() {
                   {stat.title}
                 </CardDescription>
                 <CardAction>
-                  <div className="flex size-8 items-center justify-center rounded-2xl bg-primary/20 text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                  <div className="flex size-8 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                     <IconComponent className="size-4" />
                   </div>
                 </CardAction>
@@ -382,7 +390,7 @@ export function DashboardPage() {
                             task.priority === "High"
                               ? "bg-destructive/12 text-destructive"
                               : task.priority === "Medium"
-                                ? "bg-primary/25 text-primary-foreground dark:bg-primary/15 dark:text-primary"
+                                ? "bg-amber-500/15 text-amber-600 dark:text-amber-400"
                                 : "bg-muted text-muted-foreground"
                           )}
                         >
@@ -391,7 +399,7 @@ export function DashboardPage() {
                       </TableCell>
                       <TableCell>
                         <Avatar size="sm">
-                          <AvatarFallback className="bg-primary/20 text-[10px] font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                          <AvatarFallback className="bg-primary/12 text-[10px] font-semibold text-primary">
                             {task.assignee}
                           </AvatarFallback>
                         </Avatar>
@@ -403,7 +411,7 @@ export function DashboardPage() {
                           className={cn(
                             "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors",
                             isDone
-                              ? "border-primary/40 bg-primary/20 text-primary-foreground dark:border-primary/30 dark:bg-primary/15 dark:text-primary"
+                              ? "border-primary/30 bg-primary/12 text-primary"
                               : "border-border bg-muted/60 text-foreground hover:bg-muted"
                           )}
                         >
@@ -480,7 +488,7 @@ export function DashboardPage() {
                         {project.category}
                       </p>
                     </div>
-                    <span className="rounded-full bg-primary/25 px-2 py-0.5 text-[11px] font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                    <span className="rounded-full bg-primary/12 px-2 py-0.5 text-[11px] font-semibold text-primary">
                       {project.progress}%
                     </span>
                   </div>
@@ -533,7 +541,7 @@ export function DashboardPage() {
                 >
                   <div className="flex items-center gap-2.5">
                     <Avatar size="default">
-                      <AvatarFallback className="bg-primary/20 text-xs font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                      <AvatarFallback className="bg-primary/12 text-xs font-semibold text-primary">
                         {member.initials}
                       </AvatarFallback>
                       {member.online && <AvatarBadge />}

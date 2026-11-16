@@ -58,12 +58,16 @@ export function LoginForm({ className, ...props }) {
     setErrorMessage("")
 
     if (!email.trim() || !email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.")
+      const msg = "Please enter a valid email address."
+      setErrorMessage(msg)
+      toast.error("Invalid email", { description: msg })
       return
     }
 
     if (password.length < 6) {
-      setErrorMessage("Password must be at least 6 characters.")
+      const msg = "Password must be at least 6 characters."
+      setErrorMessage(msg)
+      toast.error("Invalid password", { description: msg })
       return
     }
 
@@ -138,7 +142,7 @@ export function LoginForm({ className, ...props }) {
                   <button
                     type="button"
                     onClick={() =>
-                      toast("Reset password", {
+                      toast.info("Reset password", {
                         description:
                           "Password reset instructions will be sent to your email.",
                       })
@@ -243,7 +247,7 @@ export function LoginForm({ className, ...props }) {
             href="#signup"
             onClick={(e) => {
               e.preventDefault()
-              toast("Sign up", {
+              toast.info("Sign up", {
                 description: "Registration page coming soon.",
               })
             }}

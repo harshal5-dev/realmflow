@@ -1,50 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <defs>
-    <linearGradient id="rf-gold-top" x1="8" y1="8" x2="56" y2="34" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FDE047" />
-      <stop offset="50%" stop-color="#FACC15" />
-      <stop offset="100%" stop-color="#F59E0B" />
+    <linearGradient id="rf-indigo-top" x1="8" y1="8" x2="56" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4F46E5" />
     </linearGradient>
-    <linearGradient id="rf-gold-mid" x1="8" y1="26" x2="56" y2="46" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#F59E0B" />
-      <stop offset="100%" stop-color="#D97706" />
+    <linearGradient id="rf-indigo-mid" x1="8" y1="26" x2="56" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4338CA" />
     </linearGradient>
-    <linearGradient id="rf-gold-bot" x1="10" y1="40" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#D97706" />
-      <stop offset="100%" stop-color="#B45309" />
+    <linearGradient id="rf-indigo-bot" x1="10" y1="40" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#3730A3" />
     </linearGradient>
   </defs>
 
-  <!-- Bottom Realm Layer -->
   <path
     d="M10 44L29.8 53.9C31.18 54.59 32.82 54.59 34.2 53.9L54 44"
-    stroke="url(#rf-gold-bot)"
+    stroke="url(#rf-indigo-bot)"
     stroke-width="5.5"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-
-  <!-- Middle Task Flow Layer -->
   <path
     d="M10 33L29.8 42.9C31.18 43.59 32.82 43.59 34.2 42.9L54 33"
-    stroke="url(#rf-gold-mid)"
+    stroke="url(#rf-indigo-mid)"
     stroke-width="5.5"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-
-  <!-- Top Active Workspace Diamond Plane -->
   <path
     d="M29.75 9.6L9.85 19.55C8.15 20.4 8.15 22.8 9.85 23.65L29.75 33.6C31.17 34.31 32.83 34.31 34.25 33.6L54.15 23.65C55.85 22.8 55.85 20.4 54.15 19.55L34.25 9.6C32.83 8.89 31.17 8.89 29.75 9.6Z"
-    fill="url(#rf-gold-top)"
-    stroke="#D97706"
-    stroke-width="1.25"
+    fill="url(#rf-indigo-top)"
   />
-
-  <!-- Inner Check / Flow Node -->
   <path
     d="M26 21.8L30.2 26L38.5 17.7"
-    stroke="#451A03"
+    stroke="#FFFFFF"
     stroke-width="3.5"
     stroke-linecap="round"
     stroke-linejoin="round"

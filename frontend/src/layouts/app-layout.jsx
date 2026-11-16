@@ -144,7 +144,7 @@ export function AppLayout() {
   }
 
   const handleSignOut = () => {
-    toast("Signed out", {
+    toast.info("Signed out", {
       description: "You have been redirected to the login page.",
     })
     navigate("/login")
@@ -486,7 +486,7 @@ export function AppLayout() {
                     <PopoverTitle className="text-sm font-semibold">
                       Notifications
                     </PopoverTitle>
-                    <span className="rounded-full bg-primary/20 px-2 py-0.5 text-[11px] font-semibold text-primary-foreground dark:bg-primary/15 dark:text-primary">
+                    <span className="rounded-full bg-primary/12 px-2 py-0.5 text-[11px] font-semibold text-primary">
                       3 New
                     </span>
                   </div>
