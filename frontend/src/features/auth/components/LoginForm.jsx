@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { cn } from "cn"
 import { toast } from "sonner"
 import {
   IconArrowRight,
@@ -35,12 +34,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-export function LoginForm({ className, ...props }) {
+const LoginForm = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [rememberMe, setRememberMe] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -77,12 +75,12 @@ export function LoginForm({ className, ...props }) {
       toast.success("Welcome back to RealmFlow!", {
         description: `Signed in as ${email}`,
       })
-      navigate("/")
+      navigate("/dashboard")
     }, 600)
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className="flex flex-col gap-6">
       <Card className="border border-border/60 bg-card/95 shadow-lg backdrop-blur-sm">
         <CardHeader className="gap-2 border-b border-border/60 pb-5">
           <div className="flex items-center justify-between gap-2">
@@ -193,36 +191,18 @@ export function LoginForm({ className, ...props }) {
                 </div>
               </Field>
 
-              {errorMessage && <FieldError>{errorMessage}</FieldError>}
+              {errorMessage && (
+                <FieldError className="animate-fade-in">
+                  {errorMessage}
+                </FieldError>
+              )}
 
-              <div className="flex items-center justify-between pt-0.5">
-                <button
-                  type="button"
-                  role="checkbox"
-                  aria-checked={rememberMe}
-                  onClick={() => setRememberMe((prev) => !prev)}
-                  className="group inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <span
-                    className={cn(
-                      "flex size-4 items-center justify-center rounded-md border transition-all",
-                      rememberMe
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border bg-input/40 group-hover:border-primary/50"
-                    )}
-                  >
-                    {rememberMe && <IconCheck className="size-3 stroke-[2.5]" />}
-                  </span>
-                  Remember me
-                </button>
-              </div>
-
-              <Field className="pt-1">
+              <Field className="pt-3 pb-5">
                 <Button
                   type="submit"
                   size="lg"
                   disabled={isLoading}
-                  className="w-full font-semibold shadow-sm"
+                  className="group w-full font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5"
                 >
                   {isLoading ? (
                     <>
@@ -232,7 +212,7 @@ export function LoginForm({ className, ...props }) {
                   ) : (
                     <>
                       Sign in
-                      <IconArrowRight className="size-4" />
+                      <IconArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                     </>
                   )}
                 </Button>
@@ -240,23 +220,9 @@ export function LoginForm({ className, ...props }) {
             </FieldGroup>
           </form>
         </CardContent>
-
-        <CardFooter className="flex items-center justify-center gap-1.5 border-t border-border/60 bg-muted/30 py-3.5 text-xs text-muted-foreground">
-          <span>Don&apos;t have an account?</span>
-          <a
-            href="#signup"
-            onClick={(e) => {
-              e.preventDefault()
-              toast.info("Sign up", {
-                description: "Registration page coming soon.",
-              })
-            }}
-            className="font-semibold text-sidebar-primary underline-offset-4 hover:underline dark:text-primary"
-          >
-            Sign up
-          </a>
-        </CardFooter>
       </Card>
     </div>
   )
 }
+
+export default LoginForm

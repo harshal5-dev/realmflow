@@ -153,6 +153,57 @@
     cursor: pointer;
     }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
     }
+}
+
+@keyframes rf-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rf-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rf-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@utility animate-fade-up {
+  animation: rf-fade-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-fade-in {
+  animation: rf-fade-in 0.3s ease-out both;
+}
+
+@utility animate-scale-in {
+  animation: rf-scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-scale-in {
+    animation: none !important;
+  }
 }

@@ -270,13 +270,14 @@ export function DashboardPage() {
 
       {/* 4 Demo Metric Cards */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {STAT_CARDS.map((stat) => {
+        {STAT_CARDS.map((stat, index) => {
           const IconComponent = stat.icon
           return (
             <Card
               key={stat.title}
               size="sm"
-              className="border border-border/60 bg-card/95 shadow-xs transition-all hover:border-primary/40 hover:shadow-md"
+              style={{ animationDelay: `${index * 55}ms` }}
+              className="animate-fade-up border border-border/60 bg-card/95 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
             >
               <CardHeader className="pb-2">
                 <CardDescription className="text-xs font-medium text-muted-foreground">
@@ -360,7 +361,7 @@ export function DashboardPage() {
                   <TableHead className="text-right text-xs">Status</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody key={taskFilter} className="animate-fade-in">
                 {filteredTasks.map((task) => {
                   const isDone = task.status === "Completed"
                   return (

@@ -58,7 +58,7 @@ import { useTheme } from "@/theme"
 const NAV_ITEMS = [
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: IconLayoutDashboard,
   },
   {
@@ -118,7 +118,7 @@ const NOTIFICATIONS = [
 ]
 
 const ROUTE_TITLES = {
-  "/": "Dashboard",
+  "/dashboard": "Dashboard",
   "/projects": "Projects",
   "/tasks": "My Tasks",
   "/board": "Kanban Board",
@@ -244,7 +244,7 @@ export function AppLayout() {
                 <NavLink
                   key={item.href}
                   to={item.href}
-                  end={item.href === "/"}
+                  end={item.href === "/dashboard"}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
                     cn(
@@ -554,7 +554,7 @@ export function AppLayout() {
 
         {/* Main Routed Content */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto max-w-7xl">
+          <div key={location.pathname} className="animate-fade-up mx-auto max-w-7xl">
             <Outlet />
           </div>
         </main>
