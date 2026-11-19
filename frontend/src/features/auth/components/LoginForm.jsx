@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { z } from "zod"
 import {
   IconArrowRight,
-  IconCheck,
   IconEye,
   IconEyeOff,
   IconLoader2,
@@ -17,16 +19,17 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field"
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import {
   Tooltip,
@@ -34,49 +37,56 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+const loginSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required.")
+    .email("Please enter a valid email address."),
+  password: z
+    .string()
+    .min(1, "Password is required.")
+    .min(6, "Password must be at least 6 characters."),
+})
+
 const LoginForm = () => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("")
+
+  const form = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onTouched",
+  })
+
+  const { isSubmitting } = form.formState
 
   const handleFillDemo = () => {
-    setEmail("demo@realmflow.app")
-    setPassword("demo12345")
-    setErrorMessage("")
+    form.setValue("email", "demo@realmflow.app", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    })
+    form.setValue("password", "demo12345", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    })
+    form.clearErrors()
     toast.success("Demo credentials filled", {
       description: "Click Sign in to continue.",
     })
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setErrorMessage("")
-
-    if (!email.trim() || !email.includes("@")) {
-      const msg = "Please enter a valid email address."
-      setErrorMessage(msg)
-      toast.error("Invalid email", { description: msg })
-      return
-    }
-
-    if (password.length < 6) {
-      const msg = "Password must be at least 6 characters."
-      setErrorMessage(msg)
-      toast.error("Invalid password", { description: msg })
-      return
-    }
-
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      toast.success("Welcome back to RealmFlow!", {
-        description: `Signed in as ${email}`,
-      })
-      navigate("/dashboard")
-    }, 600)
+  const onSubmit = async (values) => {
+    await new Promise((resolve) => setTimeout(resolve, 600))
+    toast.success("Welcome back to RealmFlow!", {
+      description: `Signed in as ${values.email}`,
+    })
+    navigate("/dashboard")
   }
 
   return (
@@ -115,96 +125,106 @@ const LoginForm = () => {
         </CardHeader>
 
         <CardContent className="pt-2">
-          <form onSubmit={handleSubmit} noValidate>
-            <FieldGroup className="gap-4">
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <div className="relative flex items-center">
-                  <IconMail className="pointer-events-none absolute left-3.5 size-4 text-muted-foreground" />
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    autoComplete="email"
-                    className="h-10 border-border/60 bg-input/40 pl-10"
-                    required
-                  />
-                </div>
-              </Field>
-
-              <Field>
-                <div className="flex items-center justify-between">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      toast.info("Reset password", {
-                        description:
-                          "Password reset instructions will be sent to your email.",
-                      })
-                    }
-                    className="text-xs font-medium text-muted-foreground transition-colors hover:text-sidebar-primary dark:hover:text-primary"
-                  >
-                    Forgot password?
-                  </button>
-                </div>
-
-                <div className="relative flex items-center">
-                  <IconLock className="pointer-events-none absolute left-3.5 size-4 text-muted-foreground" />
-                  <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    autoComplete="current-password"
-                    className="h-10 border-border/60 bg-input/40 pr-10 pl-10"
-                    required
-                  />
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setShowPassword((current) => !current)
-                          }
-                          aria-label={
-                            showPassword ? "Hide password" : "Show password"
-                          }
-                          className="absolute right-2.5 inline-flex size-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              noValidate
+              className="flex flex-col gap-4"
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <div className="relative flex items-center">
+                      <IconMail className="pointer-events-none absolute left-3.5 size-4 text-muted-foreground" />
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="you@example.com"
+                          autoComplete="email"
+                          className="h-10 border-border/60 bg-input/40 pl-10"
+                          {...field}
                         />
-                      }
-                    >
-                      {showPassword ? (
-                        <IconEyeOff className="size-4" />
-                      ) : (
-                        <IconEye className="size-4" />
-                      )}
-                    </TooltipTrigger>
-                    <TooltipContent side="top">
-                      {showPassword ? "Hide password" : "Show password"}
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              </Field>
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              {errorMessage && (
-                <FieldError className="animate-fade-in">
-                  {errorMessage}
-                </FieldError>
-              )}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Password</FormLabel>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          toast.info("Reset password", {
+                            description:
+                              "Password reset instructions will be sent to your email.",
+                          })
+                        }
+                        className="text-xs font-medium text-muted-foreground transition-colors hover:text-sidebar-primary dark:hover:text-primary"
+                      >
+                        Forgot password?
+                      </button>
+                    </div>
 
-              <Field className="pt-3 pb-5">
+                    <div className="relative flex items-center">
+                      <IconLock className="pointer-events-none absolute left-3.5 size-4 text-muted-foreground" />
+                      <FormControl>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          autoComplete="current-password"
+                          className="h-10 border-border/60 bg-input/40 pr-10 pl-10"
+                          {...field}
+                        />
+                      </FormControl>
+                      <Tooltip>
+                        <TooltipTrigger
+                          render={
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setShowPassword((current) => !current)
+                              }
+                              aria-label={
+                                showPassword ? "Hide password" : "Show password"
+                              }
+                              className="absolute right-2.5 inline-flex size-6 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                            />
+                          }
+                        >
+                          {showPassword ? (
+                            <IconEyeOff className="size-4" />
+                          ) : (
+                            <IconEye className="size-4" />
+                          )}
+                        </TooltipTrigger>
+                        <TooltipContent side="top">
+                          {showPassword ? "Hide password" : "Show password"}
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="pt-3 pb-5">
                 <Button
                   type="submit"
                   size="lg"
-                  disabled={isLoading}
+                  disabled={isSubmitting}
                   className="group w-full font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5"
                 >
-                  {isLoading ? (
+                  {isSubmitting ? (
                     <>
                       <IconLoader2 className="size-4 animate-spin" />
                       Signing in...
@@ -216,9 +236,9 @@ const LoginForm = () => {
                     </>
                   )}
                 </Button>
-              </Field>
-            </FieldGroup>
-          </form>
+              </div>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

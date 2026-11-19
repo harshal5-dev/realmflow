@@ -180,7 +180,7 @@ const Login = () => {
               ))}
             </CardContent>
 
-            <CardFooter className="flex items-center justify-between border-t border-border/60 bg-muted/25 py-3">
+            <CardFooter className="flex items-center justify-between border-t border-border/60 py-3">
               <div className="flex items-center gap-2.5">
                 <AvatarGroup>
                   <Avatar size="sm">

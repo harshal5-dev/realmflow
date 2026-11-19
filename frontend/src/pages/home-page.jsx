@@ -188,7 +188,7 @@ export function HomePage() {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute -top-36 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
+        <div className="absolute -top-36 left-1/2 size-130 -translate-x-1/2 rounded-full bg-primary/12 blur-3xl" />
         <div className="absolute top-1/3 -right-32 size-96 rounded-full bg-primary/8 blur-3xl" />
       </div>
 

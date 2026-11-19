@@ -370,7 +370,7 @@ export function DashboardPage() {
                         {task.id}
                       </TableCell>
                       <TableCell>
-                        <div className="max-w-[260px] sm:max-w-xs">
+                        <div className="max-w-65 sm:max-w-xs">
                           <p
                             className={cn(
                               "truncate text-xs font-medium text-foreground",
