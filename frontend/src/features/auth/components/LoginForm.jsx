@@ -59,7 +59,7 @@ const LoginForm = () => {
       email: "",
       password: "",
     },
-    mode: "onTouched",
+    mode: "onBlur",
   })
 
   const { isSubmitting } = form.formState
@@ -129,7 +129,7 @@ const LoginForm = () => {
             <form
               onSubmit={form.handleSubmit(onSubmit)}
               noValidate
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-5"
             >
               <FormField
                 control={form.control}
@@ -161,18 +161,6 @@ const LoginForm = () => {
                   <FormItem>
                     <div className="flex items-center justify-between">
                       <FormLabel>Password</FormLabel>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          toast.info("Reset password", {
-                            description:
-                              "Password reset instructions will be sent to your email.",
-                          })
-                        }
-                        className="text-xs font-medium text-muted-foreground transition-colors hover:text-sidebar-primary dark:hover:text-primary"
-                      >
-                        Forgot password?
-                      </button>
                     </div>
 
                     <div className="relative flex items-center">
